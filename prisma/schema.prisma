@@ -1,0 +1,242 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  CUSTOMER
+  USER
+  MODERATOR // moderator
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  BANNED
+  PENDING
+  SUSPENDED
+  DELETED
+}
+
+model User {
+  id             String      @id @default(uuid())
+  name           String?
+  email          String      @unique
+  username       String?     @unique
+  phone          String?
+  password       String?
+  roles          Role[]      @default([CUSTOMER])
+  avatar         String?
+  status         UserStatus  @default(ACTIVE)
+  isEmailVerified Boolean     @default(false)
+  provider       AuthProvider @default(CREDENTIAL)
+  providerId     String?      // for Google/GitHub ID
+  refreshToken     String?
+  passwordResetToken     String?
+  passwordResetExpires   DateTime?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  loginHistories LoginHistory[]
+  userInfo       UserInfo?
+  orders         Order[]
+  payments       Payment[]
+  @@index([email,status,username,createdAt,phone,refreshToken])
+}
+
+
+model UserInfo {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String @unique
+  bio       String?
+  street    String?
+  city      String?
+  state     String?
+  country   String?
+  zip       String?
+  postalCode String?
+  company   String?
+  website   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum AuthProvider {
+  GOOGLE
+  FACEBOOK
+  CREDENTIAL
+}
+
+enum LoginHistoryStatus {
+  SUCCESS
+  FAILED
+  LOCKED
+}
+
+model LoginHistory {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  attempt   LoginHistoryStatus @default(SUCCESS)
+  ip        String?
+  country   String?
+  userAgent String?
+  createdAt DateTime @default(now())
+  @@index([userId,createdAt])
+}
+
+enum ProductStatus {
+  ACTIVE
+  INACTIVE
+  DELETED
+  PENDING
+}
+
+enum BillingCycle {
+  MONTHLY
+  ANNUALLY
+  LIFETIME
+  ONE_TIME
+}
+
+enum ProductGrading {
+  FREE
+  BASIC
+  PREMIUM
+  ENTERPRISE
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  type        ProductType
+  quantity    Int?      @default(1)
+  grade       ProductGrading  @default(FREE)
+  description String?
+  vat         Float   @default(0)
+  tax         Float   @default(0)
+  price       Float    @default(0)
+  discount    Float?    @default(0)
+  config      Json?    
+  isActive    Boolean  @default(true)
+  isDeleted   Boolean  @default(false)
+  billingCycle BillingCycle @default(MONTHLY)
+  status      ProductStatus   @default(ACTIVE)
+  orders      Order[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum ProductType {
+  DOMAIN
+  HOSTING
+  SSL
+  EMAIL
+  VPS
+  CLOUD
+  DEDICATED
+  SMS
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  PROCESSING
+  COMPLETED
+  FAILED
+  EXPIRED
+  CANCELLED
+  REFUNDED
+}
+
+model Order {
+  id          String      @id @default(uuid())
+  user        User        @relation(fields: [userId], references: [id])
+  userId      String
+  productId   String
+  domainName  String?     
+  status      OrderStatus @default(PENDING)
+  amount      Float       @default(0)
+  metadata    Json? 
+  paidAt      DateTime?
+  expiresAt   DateTime?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  payments    Payment[]
+  product     Product     @relation(fields: [productId], references: [id],onDelete: Cascade)
+  @@index([userId, productId,createdAt])
+}
+
+
+enum PaymentStatus {
+  PENDING
+  DUE
+  SUCCESS
+  FAILED
+  CANCELLED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  SSLCOMMERZ
+  BIKASH
+  NAGAD
+  BANK
+  CASH
+  CUSTOM
+}
+
+
+
+model Payment {
+  id        String   @id @default(uuid())
+  userId    String 
+  orderId   String
+  method    PaymentMethod? @default(CUSTOM) 
+  status    PaymentStatus? @default(DUE)   
+  currency  String?       @default("BDT")
+  transId   String?
+  amount    Float
+  tax       Float? @default(0)
+  vat       Float? @default(0)
+  discount  Float? @default(0)
+  subtotal  Float? @default(0)
+  metadata  Json?
+  createdAt DateTime @default(now())
+  paidAt    DateTime?
+  user      User @relation(fields: [userId],references: [id])
+  order     Order    @relation(fields: [orderId], references: [id])
+  @@index([userId,status,transId,orderId,paidAt])
+}
+
+model Setting {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     Json?
+  category  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum CouponStatus {
+  ACTIVE
+  INACTIVE
+  EXPIRED
+}
+
+model Coupon {
+  id        String   @id @default(uuid())
+  code      String   @unique
+  discount  Float
+  status    CouponStatus   @default(ACTIVE)
+  expiesAt  DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

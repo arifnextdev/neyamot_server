@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invoice - A4 Format</title>
+  </head>
+  <body
+    style="
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      box-sizing: border-box;
+    "
+  >
+    <div
+      style="
+        width: 210mm;
+        min-height: 297mm;
+        max-width: 210mm;
+        margin: 0 auto;
+        background: white;
+        padding: 25mm;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+      "
+    >
+      <!-- Header -->
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          margin-bottom: 40px;
+          padding-bottom: 20px;
+          border-bottom: 1px solid #e0e0e0;
+        "
+      >
+        <div style="display: flex; align-items: center; gap: 15px">
+          <div
+            style="
+              width: 60px;
+              height: 60px;
+              border: 1px solid #ddd;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 10px;
+              color: #999;
+              background: #fafafa;
+            "
+          >
+            <span>LOGO</span>
+          </div>
+          <div>
+            <h1
+              style="
+                margin: 0 0 2px 0;
+                font-size: 20px;
+                font-weight: 600;
+                color: #333;
+              "
+            >
+              Niamot Enterprice
+            </h1>
+            <p style="margin: 0; font-size: 12px; color: #666">
+              Professional Services
+            </p>
+          </div>
+        </div>
+        <div style="text-align: right">
+          <h2
+            style="
+              margin: 0 0 5px 0;
+              font-size: 24px;
+              font-weight: 300;
+              color: #333;
+            "
+          >
+            INVOICE
+          </h2>
+          <div style="font-size: 14px; color: #666; margin-bottom: 10px">
+            #INV-2025-001
+          </div>
+          <div style="font-size: 12px; color: #999">January 15, 2025</div>
+        </div>
+      </div>
+
+      <!-- Content Grid -->
+      <div
+        style="
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 30px;
+          margin-bottom: 40px;
+        "
+      >
+        <!-- Service Details -->
+        <div
+          style="
+            background: #fafafa;
+            padding: 20px;
+            border-left: 3px solid #333;
+          "
+        >
+          <h3
+            style="
+              margin: 0 0 15px 0;
+              font-size: 14px;
+              font-weight: 600;
+              color: #333;
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+            "
+          >
+            Service Details
+          </h3>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 8px;
+              font-size: 13px;
+            "
+          >
+            <span style="color: #666; font-weight: 500">Domain Name:</span>
+            <span style="color: #333; font-weight: 400">example.com</span>
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 8px;
+              font-size: 13px;
+            "
+          >
+            <span style="color: #666; font-weight: 500">Product:</span>
+            <span style="color: #333; font-weight: 400">Premium Hosting</span>
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 8px;
+              font-size: 13px;
+            "
+          >
+            <span style="color: #666; font-weight: 500">Type:</span>
+            <span style="color: #333; font-weight: 400">Web Hosting</span>
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 8px;
+              font-size: 13px;
+            "
+          >
+            <span style="color: #666; font-weight: 500">Status:</span>
+            <span style="color: #333; font-weight: 400">
+              <span
+                style="
+                  display: inline-block;
+                  padding: 2px 8px;
+                  font-size: 11px;
+                  font-weight: 500;
+                  text-transform: uppercase;
+                  border-radius: 2px;
+                  background: #e8f5e8;
+                  color: #2d5a2d;
+                "
+                >Active</span
+              >
+            </span>
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 8px;
+              font-size: 13px;
+            "
+          >
+            <span style="color: #666; font-weight: 500">Expires:</span>
+            <span style="color: #333; font-weight: 400">December 31, 2025</span>
+          </div>
+        </div>
+
+        <!-- Customer Information -->
+        <div
+          style="
+            background: #fafafa;
+            padding: 20px;
+            border-left: 3px solid #333;
+          "
+        >
+          <h3
+            style="
+              margin: 0 0 15px 0;
+              font-size: 14px;
+              font-weight: 600;
+              color: #333;
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+            "
+          >
+            Customer Information
+          </h3>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 8px;
+              font-size: 13px;
+            "
+          >
+            <span style="color: #666; font-weight: 500">Name:</span>
+            <span style="color: #333; font-weight: 400">John Doe</span>
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 8px;
+              font-size: 13px;
+            "
+          >
+            <span style="color: #666; font-weight: 500">Email:</span>
+            <span style="color: #333; font-weight: 400"
+              >john.doe@example.com</span
+            >
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 8px;
+              font-size: 13px;
+            "
+          >
+            <span style="color: #666; font-weight: 500">Phone:</span>
+            <span style="color: #333; font-weight: 400">+1 (555) 123-4567</span>
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 8px;
+              font-size: 13px;
+            "
+          >
+            <span style="color: #666; font-weight: 500">Paid At:</span>
+            <span style="color: #333; font-weight: 400">January 15, 2025</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Breakdown -->
+      <table
+        style="
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 30px;
+          background: white;
+        "
+      >
+        <thead>
+          <tr>
+            <th
+              style="
+                background: #f8f8f8;
+                padding: 12px;
+                text-align: left;
+                font-size: 12px;
+                font-weight: 600;
+                color: #333;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                border-bottom: 1px solid #e0e0e0;
+              "
+            >
+              Description
+            </th>
+            <th
+              style="
+                background: #f8f8f8;
+                padding: 12px;
+                text-align: center;
+                font-size: 12px;
+                font-weight: 600;
+                color: #333;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                border-bottom: 1px solid #e0e0e0;
+              "
+            >
+              Quantity
+            </th>
+            <th
+              style="
+                background: #f8f8f8;
+                padding: 12px;
+                text-align: right;
+                font-size: 12px;
+                font-weight: 600;
+                color: #333;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                border-bottom: 1px solid #e0e0e0;
+              "
+            >
+              Unit Price
+            </th>
+            <th
+              style="
+                background: #f8f8f8;
+                padding: 12px;
+                text-align: right;
+                font-size: 12px;
+                font-weight: 600;
+                color: #333;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                border-bottom: 1px solid #e0e0e0;
+              "
+            >
+              Amount
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td
+              style="
+                padding: 12px;
+                font-size: 13px;
+                border-bottom: 1px solid #f0f0f0;
+              "
+            >
+              Premium Hosting - example.com
+            </td>
+            <td
+              style="
+                padding: 12px;
+                font-size: 13px;
+                border-bottom: 1px solid #f0f0f0;
+                text-align: center;
+              "
+            >
+              1
+            </td>
+            <td
+              style="
+                padding: 12px;
+                font-size: 13px;
+                border-bottom: 1px solid #f0f0f0;
+                text-align: right;
+              "
+            >
+              $85.00
+            </td>
+            <td
+              style="
+                padding: 12px;
+                font-size: 13px;
+                border-bottom: 1px solid #f0f0f0;
+                text-align: right;
+              "
+            >
+              $85.00
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Totals -->
+      <div style="margin-left: auto; width: 250px; margin-bottom: 30px">
+        <table style="width: 100%; border-collapse: collapse">
+          <tbody>
+            <tr>
+              <td
+                style="
+                  padding: 8px 12px;
+                  font-size: 13px;
+                  border-bottom: 1px solid #f0f0f0;
+                  color: #666;
+                "
+              >
+                Subtotal:
+              </td>
+              <td
+                style="
+                  padding: 8px 12px;
+                  font-size: 13px;
+                  border-bottom: 1px solid #f0f0f0;
+                  text-align: right;
+                  color: #333;
+                  font-weight: 500;
+                "
+              >
+                $85.00
+              </td>
+            </tr>
+            <tr>
+              <td
+                style="
+                  padding: 8px 12px;
+                  font-size: 13px;
+                  border-bottom: 1px solid #f0f0f0;
+                  color: #666;
+                "
+              >
+                Tax:
+              </td>
+              <td
+                style="
+                  padding: 8px 12px;
+                  font-size: 13px;
+                  border-bottom: 1px solid #f0f0f0;
+                  text-align: right;
+                  color: #333;
+                  font-weight: 500;
+                "
+              >
+                $8.50
+              </td>
+            </tr>
+            <tr>
+              <td
+                style="
+                  padding: 8px 12px;
+                  font-size: 13px;
+                  border-bottom: 1px solid #f0f0f0;
+                  color: #666;
+                "
+              >
+                VAT:
+              </td>
+              <td
+                style="
+                  padding: 8px 12px;
+                  font-size: 13px;
+                  border-bottom: 1px solid #f0f0f0;
+                  text-align: right;
+                  color: #333;
+                  font-weight: 500;
+                "
+              >
+                $6.50
+              </td>
+            </tr>
+            <tr>
+              <td
+                style="
+                  padding: 8px 12px;
+                  font-size: 13px;
+                  border-bottom: 1px solid #f0f0f0;
+                  color: #666;
+                "
+              >
+                Discount:
+              </td>
+              <td
+                style="
+                  padding: 8px 12px;
+                  font-size: 13px;
+                  border-bottom: 1px solid #f0f0f0;
+                  text-align: right;
+                  color: #333;
+                  font-weight: 500;
+                "
+              >
+                -$5.00
+              </td>
+            </tr>
+            <tr
+              style="border-top: 2px solid #333; border-bottom: 2px solid #333"
+            >
+              <td
+                style="
+                  font-weight: 600;
+                  font-size: 16px;
+                  padding: 12px;
+                  color: #333;
+                "
+              >
+                Total:
+              </td>
+              <td
+                style="
+                  font-weight: 600;
+                  font-size: 16px;
+                  padding: 12px;
+                  color: #333;
+                  text-align: right;
+                "
+              >
+                $95.00
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Transaction Information -->
+      <div style="background: #f8f8f8; padding: 20px; margin-bottom: 30px">
+        <h4
+          style="
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+          "
+        >
+          Payment Information
+        </h4>
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+          "
+        >
+          <div style="font-size: 12px">
+            <span style="color: #666; display: block; margin-bottom: 2px"
+              >Transaction ID:</span
+            >
+            <span style="color: #333; font-weight: 500">TXN123456789</span>
+          </div>
+          <div style="font-size: 12px">
+            <span style="color: #666; display: block; margin-bottom: 2px"
+              >Payment Method:</span
+            >
+            <span style="color: #333; font-weight: 500">Credit Card</span>
+          </div>
+          <div style="font-size: 12px">
+            <span style="color: #666; display: block; margin-bottom: 2px"
+              >Currency:</span
+            >
+            <span style="color: #333; font-weight: 500">USD</span>
+          </div>
+          <div style="font-size: 12px">
+            <span style="color: #666; display: block; margin-bottom: 2px"
+              >Payment Status:</span
+            >
+            <span style="color: #333; font-weight: 500">
+              <span
+                style="
+                  display: inline-block;
+                  padding: 2px 8px;
+                  font-size: 11px;
+                  font-weight: 500;
+                  text-transform: uppercase;
+                  border-radius: 2px;
+                  background: #e8f5e8;
+                  color: #2d5a2d;
+                "
+                >Paid</span
+              >
+            </span>
+          </div>
+          <div style="font-size: 12px">
+            <span style="color: #666; display: block; margin-bottom: 2px"
+              >Payment Date:</span
+            >
+            <span style="color: #333; font-weight: 500">January 15, 2025</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div
+        style="
+          text-align: center;
+          padding-top: 20px;
+          border-top: 1px solid #e0e0e0;
+          color: #666;
+          font-size: 12px;
+        "
+      >
+        <p style="margin: 0 0 5px 0">
+          <strong>Thank you for your business!</strong>
+        </p>
+        <p style="margin: 0 0 5px 0">
+          For any questions regarding this invoice, please contact our support
+          team.
+        </p>
+        <button
+          style="
+            background: #333;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-top: 15px;
+          "
+          onclick="window.print()"
+          onmouseover="this.style.background='#555'"
+          onmouseout="this.style.background='#333'"
+        >
+          Print Invoice
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
