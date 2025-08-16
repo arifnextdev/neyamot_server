@@ -1,14 +1,17 @@
 # Multi-stage build for production optimization
 FROM node:18-alpine AS base
 
+# Install pnpm globally
+RUN npm install -g pnpm
+
 # Install dependencies only when needed
 FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Install dependencies based on the preferred package manager
-COPY package.json package-lock.json* ./
-RUN if [ -f package-lock.json ]; then npm ci --omit=dev; else npm install --omit=dev; fi
+# Install dependencies based on pnpm
+COPY package.json pnpm-lock.yaml* ./
+RUN if [ -f pnpm-lock.yaml ]; then pnpm install --frozen-lockfile --prod; else pnpm install --prod; fi
 
 # Rebuild the source code only when needed
 FROM base AS builder
@@ -20,7 +23,7 @@ COPY . .
 RUN npx prisma generate
 
 # Build the application
-RUN npm run build
+RUN pnpm run build
 
 # Production image, copy all the files and run the app
 FROM base AS runner
