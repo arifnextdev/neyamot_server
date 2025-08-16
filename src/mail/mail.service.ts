@@ -1,4 +1,4 @@
-import { SendHmr } from './../../../../node_modules/next/dist/server/dev/turbopack-utils.d';
+// Removed invalid Next.js import
 // // src/mail/mail.service.ts
 
 // import { Injectable, Logger } from '@nestjs/common';
