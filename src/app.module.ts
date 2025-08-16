@@ -27,6 +27,7 @@ import { TasksModule } from './tasks/tasks.module';
 import { UserController } from './user/user.controller';
 import { UserModule } from './user/user.module';
 import { UserService } from './user/user.service';
+import { HealthModule } from './health/health.module';
 
 import { ConfigModule } from './config/config.module';
 import { JwtService } from '@nestjs/jwt';
@@ -45,8 +46,9 @@ import { APP_GUARD } from '@nestjs/core';
     ]),
     BullModule.forRoot({
       connection: {
-        host: 'localhost',
-        port: 6379,
+        host: process.env.REDIS_HOST || 'localhost',
+        port: parseInt(process.env.REDIS_PORT || '6379'),
+        password: process.env.REDIS_PASSWORD,
       },
     }),
     TasksModule,
@@ -61,6 +63,7 @@ import { APP_GUARD } from '@nestjs/core';
     MailModule,
     BikashModule,
     PaymentModule,
+    HealthModule,
   ],
   controllers: [
     AppController,

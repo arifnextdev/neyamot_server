@@ -60,7 +60,7 @@ export class BikashService {
           payerReference: '1234',
           intent: 'sale',
           merchantInvoiceNumber: payID,
-          callbackURL: `http://localhost:3001/bikash/execute/?payID=${payID}`,
+          callbackURL: `${process.env.API_URL || 'http://localhost:3001'}/bikash/execute/?payID=${payID}`,
         },
         {
           headers: {
@@ -109,7 +109,7 @@ export class BikashService {
       //   text: `Your payment with ID ${payID} has been cancelled or failed with status: ${status}.`,
       // });
       res.redirect(
-        `http://localhost:3000/error?message=${status}&payID=${payID}`,
+        `${process.env.FRONTEND_URL || 'http://localhost:3000'}/error?message=${status}&payID=${payID}`,
       );
 
       // this.taskService.queueEmail({
@@ -203,13 +203,13 @@ export class BikashService {
             payment.order.userId,
           );
           res.redirect(
-            `http://localhost:3000/success?message=${data.message}&payID=${payID}`,
+            `${process.env.FRONTEND_URL || 'http://localhost:3000'}/success?message=${data.message}&payID=${payID}`,
           );
         }
       } catch (error) {
         console.log(error);
         res.redirect(
-          `http://localhost:3000/error?message=${error.message}&payID=${payID}`,
+          `${process.env.FRONTEND_URL || 'http://localhost:3000'}/error?message=${error.message}&payID=${payID}`,
         );
       }
     }

@@ -158,7 +158,7 @@ export class AuthService {
     });
 
     // In a real app, you'd use a proper URL
-    const resetURL = `http://localhost:3000/auth/reset-password/${resetToken}`;
+    const resetURL = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/auth/reset-password/${resetToken}`;
 
     try {
       await this.mailService.sendPasswordResetEmail(user, resetURL);

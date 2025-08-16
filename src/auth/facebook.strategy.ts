@@ -9,7 +9,7 @@ export class FacebookStrategy extends PassportStrategy(Strategy, 'facebook') {
     super({
       clientID: configService.get<string>('FACEBOOK_CLIENT_ID'),
       clientSecret: configService.get<string>('FACEBOOK_CLIENT_SECRET'),
-      callbackURL: 'http://localhost:3001/auth/facebook/callback',
+      callbackURL: `${process.env.API_URL || 'http://localhost:3001'}/auth/facebook/callback`,
       scope: ['email', 'public_profile'],
     });
   }

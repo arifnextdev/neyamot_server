@@ -99,7 +99,7 @@ export class AuthController {
     const jwt = await this.authService.socialLogin(req.user, 'GOOGLE');
     console.log(jwt);
     res.redirect(
-      `http://localhost:3000/oauth-callback?token=${jwt.accessToken}`,
+      `${process.env.FRONTEND_URL || 'http://localhost:3000'}/oauth-callback?token=${jwt.accessToken}`,
     );
   }
 
@@ -114,7 +114,7 @@ export class AuthController {
     const jwt = await this.authService.socialLogin(req.user, 'FACEBOOK');
     console.log(jwt);
     res.redirect(
-      `http://localhost:3000/oauth-callback?token=${jwt.accessToken}`,
+      `${process.env.FRONTEND_URL || 'http://localhost:3000'}/oauth-callback?token=${jwt.accessToken}`,
     );
   }
 }
