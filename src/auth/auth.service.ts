@@ -4,7 +4,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import { Request } from 'express';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/user.dto';
@@ -32,7 +32,7 @@ export class AuthService {
       throw new UnauthorizedException('User already exists');
     }
 
-    const hashPassword = await bcrypt.hash(dto.password, 10);
+    const hashPassword = await bcrypt.hash(dto.password || '', 10);
 
     const username = this.generateUniqueUserName(dto.name || '', dto.email);
 
@@ -101,7 +101,7 @@ export class AuthService {
       throw new UnauthorizedException('User is not active');
     }
 
-    const isPasswordCorrect = await bcrypt.compare(dto.password, user.password);
+    const isPasswordCorrect = await bcrypt.compare(dto.password, user.password || '');
 
     if (!isPasswordCorrect) {
       await this.prisma.loginHistory.create({
@@ -196,7 +196,7 @@ export class AuthService {
       throw new UnauthorizedException('Token is invalid or has expired');
     }
 
-    const hashedPassword = await bcrypt.hash(parsedata.data.password, 10);
+    const hashedPassword = await bcrypt.hash(parsedata.data.password || '', 10);
 
     await this.prisma.user.update({
       where: { id: user.id },

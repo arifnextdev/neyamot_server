@@ -6,7 +6,7 @@ RUN npm install -g pnpm
 
 # Install dependencies only when needed
 FROM base AS deps
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache libc6-compat python3 make g++
 WORKDIR /app
 
 # Install dependencies based on pnpm
@@ -15,6 +15,7 @@ RUN if [ -f pnpm-lock.yaml ]; then pnpm install --frozen-lockfile --prod; else p
 
 # Rebuild the source code only when needed
 FROM base AS builder
+RUN apk add --no-cache libc6-compat python3 make g++
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .

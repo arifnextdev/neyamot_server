@@ -3,7 +3,7 @@ import { UpdateUserDto, CreateUserDto } from 'src/auth/dto/user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { userUpdateSchema } from './dto/userUpdate.dto';
 import { ResetPasswordDto } from 'src/auth/dto/reset-password.dto';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import { Role, UserStatus } from '@prisma/client';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class UserService {
       throw new NotFoundException('User already exists');
     }
 
-    const hashedPassword = await bcrypt.hash(data.password, 10);
+    const hashedPassword = await bcrypt.hash(data.password || '', 10);
     const user = await this.prisma.user.create({
       data: { ...data, password: hashedPassword },
     });
@@ -352,7 +352,7 @@ export class UserService {
 
   // Reset user password
   async resetPassword(id: string, data: ResetPasswordDto) {
-    const hashedPassword = await bcrypt.hash(data.password, 10);
+    const hashedPassword = await bcrypt.hash(data.password || '', 10);
     const user = await this.prisma.user.update({
       where: { id },
       data: { password: hashedPassword },
