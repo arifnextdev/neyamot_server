@@ -680,4 +680,65 @@ export class OrderService {
     // Implement proper password generation
     return Math.random().toString(36).slice(-10);
   }
+
+  // Admin Dashboard: KPIs
+  async getKpis() {
+    const [users, products, orders, revenueAgg] = await Promise.all([
+      this.prisma.user.count(),
+      this.prisma.product.count(),
+      this.prisma.order.count(),
+      this.prisma.payment.aggregate({
+        // Cast to avoid depending on enum import
+        where: { status: 'SUCCESS' as any },
+        _sum: { amount: true },
+      }),
+    ]);
+
+    return {
+      users,
+      products,
+      orders,
+      revenue: revenueAgg._sum.amount || 0,
+    };
+  }
+
+  // Admin Dashboard: Status distribution
+  async getStatusStats() {
+    const grouped = await this.prisma.order.groupBy({
+      by: ['status'],
+      _count: { _all: true },
+    });
+
+    return grouped.map((g) => ({ _id: g.status, count: g._count._all }));
+  }
+
+  // Admin Dashboard: Last 6 months orders by createdAt
+  async getMonthlyStats() {
+    const now = new Date();
+    const buckets: { key: string; label: string; year: number; month: number }[] = [];
+    for (let i = 5; i >= 0; i--) {
+      const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      const label = d.toLocaleString('en-US', { month: 'short' });
+      const key = `${d.getFullYear()}-${d.getMonth() + 1}`;
+      buckets.push({ key, label, year: d.getFullYear(), month: d.getMonth() });
+    }
+
+    const from = startOfMonth(new Date(now.getFullYear(), now.getMonth() - 5, 1));
+    const orders = await this.prisma.order.findMany({
+      where: { createdAt: { gte: from } },
+      select: { createdAt: true },
+    });
+
+    const counts: Record<string, number> = Object.fromEntries(
+      buckets.map((b) => [b.key, 0]),
+    );
+
+    for (const o of orders) {
+      const d = new Date(o.createdAt as any);
+      const key = `${d.getFullYear()}-${d.getMonth() + 1}`;
+      if (key in counts) counts[key] += 1;
+    }
+
+    return buckets.map((b) => ({ month: b.label, count: counts[b.key] || 0 }));
+  }
 }

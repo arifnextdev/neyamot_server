@@ -82,4 +82,20 @@ export class OrderController {
   getTransaction(@Query() query: GetFilterDto) {
     return this.orderService.getTransaction(query);
   }
+
+  // Admin Dashboard endpoints
+  @Get('/admin/kpis')
+  getKpis() {
+    return this.orderService.getKpis();
+  }
+
+  @Get('/admin/status-stats')
+  getStatusStats() {
+    return this.orderService.getStatusStats();
+  }
+
+  @Get('/admin/monthly-stats')
+  getMonthlyStats() {
+    return this.orderService.getMonthlyStats();
+  }
 }
