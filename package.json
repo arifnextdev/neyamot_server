@@ -16,6 +16,9 @@
     "dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
+    "vercel-build": "prisma generate && prisma migrate deploy && nest build",
+    "vercel-dev": "prisma generate && nest start --watch",
+    "vercel-start": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -24,6 +27,13 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "db:seed": "prisma db seed"
   },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "cacheDirectories": [
+    "node_modules",
+    ".prisma/client"
+  ],
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
   },
@@ -42,7 +52,9 @@
     "@nestjs/schedule": "^6.0.0",
     "@nestjs/throttler": "^6.4.0",
     "@prisma/client": "^6.6.0",
+    "@types/aws-lambda": "^8.10.155",
     "@types/pdfkit": "^0.13.9",
+    "aws-serverless-express": "^3.4.0",
     "axios": "^1.9.0",
     "bcryptjs": "^3.0.2",
     "bull": "^4.16.5",
