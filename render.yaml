@@ -1,20 +1,20 @@
 services:
   - type: web
     name: neyamot-server
-    runtime: node
-    region: oregon
-    plan: free
-    buildCommand: pnpm install && npx prisma migrate deploy && pnpm run build
-    startCommand: node dist/main.js
+    runtime: docker
+    plan: free  # Change to 'starter' or higher for production
+    region: oregon  # Choose your preferred region
+    branch: main
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 10000
       - key: DATABASE_URL
-        sync: false
-      - key: JWT_SECRET
-        sync: false
+        sync: false  # Set this in Render dashboard
       - key: FRONTEND_URL
-        sync: false
-    healthCheckPath: /api
+        sync: false  # Set this in Render dashboard
+      - key: JWT_SECRET
+        generateValue: true  # Auto-generate secure secret
+      - key: PORT
+        value: 3000
+    healthCheckPath: /api/v1/health

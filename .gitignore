@@ -2,9 +2,6 @@
 /dist
 /node_modules
 /build
-/api/dist
-/api/node_modules
-/api/package.json
 
 # Logs
 logs
@@ -14,6 +11,9 @@ pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
+
+# Docker
+# .dockerignore
 
 # OS
 .DS_Store

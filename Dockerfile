@@ -6,28 +6,32 @@ RUN npm install -g pnpm
 
 # Install dependencies only when needed
 FROM base AS deps
-RUN apk add --no-cache libc6-compat python3 make g++
+RUN apk add --no-cache libc6-compat python3 make g++ openssl
 WORKDIR /app
 
-# Install dependencies based on pnpm
+# Copy package files and prisma schema
 COPY package.json pnpm-lock.yaml* ./
-RUN if [ -f pnpm-lock.yaml ]; then pnpm install --frozen-lockfile --prod; else pnpm install --prod; fi
+COPY prisma ./prisma
+
+# Install dependencies (skip scripts to avoid postinstall issues)
+RUN pnpm install --frozen-lockfile --ignore-scripts
 
 # Rebuild the source code only when needed
 FROM base AS builder
-RUN apk add --no-cache libc6-compat python3 make g++
+RUN apk add --no-cache libc6-compat python3 make g++ openssl
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # Generate Prisma client
-RUN npx prisma generate
+RUN pnpm exec prisma generate
 
 # Build the application
 RUN pnpm run build
 
 # Production image, copy all the files and run the app
 FROM base AS runner
+RUN apk add --no-cache openssl
 WORKDIR /app
 
 # Create a non-root user
@@ -43,12 +47,8 @@ COPY --from=builder --chown=nestjs:nodejs /app/prisma ./prisma
 # Set user
 USER nestjs
 
-# Expose port
-EXPOSE 3001
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node -e "require('http').get('http://localhost:3001/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"
+# Expose port (Render uses PORT env variable)
+EXPOSE 3000
 
 # Start the application
 CMD ["node", "dist/main.js"]

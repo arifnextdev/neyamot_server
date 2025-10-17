@@ -1,9 +1,0 @@
-node_modules
-.env
-.env.local
-.git
-test
-coverage
-*.spec.ts
-*.test.ts
-prisma/migrations
