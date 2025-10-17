@@ -26,6 +26,10 @@ COPY . .
 # Generate Prisma client
 RUN pnpm exec prisma generate
 
+# Seed the database
+RUN pnpm exec prisma db seed
+
+
 # Build the application
 RUN pnpm run build
 
