@@ -1,10 +1,11 @@
 // Vercel serverless function handler
-// Loads the bundled NestJS application (created by @vercel/ncc)
+// Loads the NestJS application from api/dist
 
 module.exports = async (req, res) => {
   try {
-    // Import the bundled application (includes all dependencies)
-    const handler = require('./dist/index.js').default;
+    // Import the compiled application
+    // node_modules is either symlinked or will be resolved from parent
+    const handler = require('./dist/main.js').default;
     return handler(req, res);
   } catch (error) {
     console.error('Error loading handler:', error);

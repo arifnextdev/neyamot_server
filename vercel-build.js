@@ -41,24 +41,38 @@ if (fs.existsSync(path.join(distRoot, 'main.js'))) {
   process.exit(1);
 }
 
-// Bundle with ncc
-try {
-  execSync(`npx @vercel/ncc build ${mainJsPath} -o ${path.join(apiDir, 'dist')} --external @prisma/client`, { stdio: 'inherit' });
-  console.log('✓ Bundled application to api/dist/');
-} catch (error) {
-  console.error('Bundling failed:', error.message);
-  process.exit(1);
+// Step 4: Copy the compiled dist to api/dist (simpler than bundling)
+console.log('Copying compiled application to api/dist...');
+const apiDistPath = path.join(apiDir, 'dist');
+
+// Remove old dist if exists
+if (fs.existsSync(apiDistPath)) {
+  fs.rmSync(apiDistPath, { recursive: true, force: true });
 }
 
-// Copy Prisma Client
-console.log('Copying Prisma Client...');
-const prismaClientSrc = path.join(__dirname, 'node_modules', '.prisma', 'client');
-const prismaClientDest = path.join(apiDir, 'node_modules', '.prisma', 'client');
-if (fs.existsSync(prismaClientSrc)) {
-  fs.mkdirSync(path.dirname(prismaClientDest), { recursive: true });
-  fs.cpSync(prismaClientSrc, prismaClientDest, { recursive: true });
-  console.log('✓ Copied Prisma Client');
+// Copy entire dist folder
+fs.cpSync(distRoot, apiDistPath, { recursive: true });
+console.log('✓ Copied dist to api/dist');
+
+// Step 5: Create symlink or copy node_modules
+console.log('Setting up node_modules for api...');
+const apiNodeModules = path.join(apiDir, 'node_modules');
+const rootNodeModules = path.join(__dirname, 'node_modules');
+
+// Remove existing if present
+if (fs.existsSync(apiNodeModules)) {
+  fs.rmSync(apiNodeModules, { recursive: true, force: true });
+}
+
+// Create a relative symlink to parent node_modules
+try {
+  const relativeNodeModules = path.join('..', 'node_modules');
+  fs.symlinkSync(relativeNodeModules, apiNodeModules);
+  console.log('✓ Created node_modules symlink');
+} catch (err) {
+  console.log('⚠ Symlink creation failed:', err.message);
+  console.log('⚠ Will rely on parent node_modules resolution');
 }
 
 console.log('✓ Build complete!');
-console.log('✓ Bundled application is ready in api/dist/');
+console.log('✓ Application is ready for deployment');
