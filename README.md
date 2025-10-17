@@ -93,9 +93,11 @@ The application will:
 
 #### Manual Deployment
 If you prefer manual configuration:
-- **Build Command**: `pnpm install && npx prisma generate && npx prisma migrate deploy && pnpm run build`
+- **Build Command**: `pnpm install && npx prisma migrate deploy && pnpm run build`
 - **Start Command**: `node dist/main.js`
 - **Health Check Path**: `/api`
+
+**Note**: Prisma Client is automatically generated via the `postinstall` script after dependencies are installed.
 
 ## Resources
 
