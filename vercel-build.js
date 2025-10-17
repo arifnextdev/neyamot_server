@@ -14,17 +14,30 @@ try {
   process.exit(1);
 }
 
-// Copy dist/src folder to api/dist directory (NestJS outputs to dist/src)
-console.log('Copying dist/src folder to api/dist directory...');
-const distPath = path.join(__dirname, 'dist', 'src');
+// Determine the correct source path for compiled files
+console.log('Checking dist folder structure...');
+const distRoot = path.join(__dirname, 'dist');
+let distPath;
+
+// Check if NestJS compiled to dist/src or directly to dist
+if (fs.existsSync(path.join(distRoot, 'src', 'main.js'))) {
+  console.log('Found main.js in dist/src/');
+  distPath = path.join(distRoot, 'src');
+} else if (fs.existsSync(path.join(distRoot, 'main.js'))) {
+  console.log('Found main.js in dist/');
+  distPath = distRoot;
+} else {
+  console.error('Could not find main.js in dist/ or dist/src/');
+  console.error('dist/ contents:', fs.readdirSync(distRoot));
+  process.exit(1);
+}
+
+console.log(`Copying from ${distPath} to api/dist...`);
 const apiDistPath = path.join(__dirname, 'api', 'dist');
 
 function copyRecursive(src, dest) {
   if (!fs.existsSync(src)) {
     console.error(`Source directory ${src} does not exist`);
-    console.error(`Looking for: ${src}`);
-    console.error(`Current directory: ${__dirname}`);
-    console.error(`Directory contents:`, fs.readdirSync(__dirname));
     process.exit(1);
   }
   
