@@ -61,38 +61,9 @@ function copyRecursive(src, dest) {
 
 copyRecursive(distPath, apiDistPath);
 
-// Create a minimal package.json in api directory to help with module resolution
-console.log('Creating package.json in api directory...');
-const apiPackageJson = {
-  "name": "api-handler",
-  "version": "1.0.0",
-  "type": "commonjs",
-  "dependencies": {}
-};
-fs.writeFileSync(
-  path.join(__dirname, 'api', 'package.json'),
-  JSON.stringify(apiPackageJson, null, 2)
-);
-
-// Copy node_modules to api directory (symlink would be better but not supported everywhere)
-// Actually, let's create a symlink or just reference parent
-console.log('Creating node_modules symlink in api directory...');
-const apiNodeModules = path.join(__dirname, 'api', 'node_modules');
-const rootNodeModules = path.join(__dirname, 'node_modules');
-
-// Remove existing if present
-if (fs.existsSync(apiNodeModules)) {
-  fs.rmSync(apiNodeModules, { recursive: true, force: true });
-}
-
-// Try to create symlink, fall back to copying if it fails
-try {
-  fs.symlinkSync(rootNodeModules, apiNodeModules, 'junction');
-  console.log('✓ Created node_modules symlink');
-} catch (err) {
-  console.log('Symlink failed, this is expected on some platforms');
-  console.log('Module resolution will use parent node_modules');
-}
+// Note: We don't create package.json or symlink node_modules here
+// because Vercel's deployment process will remove them.
+// Instead, we rely on NODE_PATH in api/index.js for module resolution.
 
 console.log('✓ Build complete!');
 console.log('✓ Copied dist to api/dist');

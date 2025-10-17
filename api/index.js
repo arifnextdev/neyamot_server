@@ -4,8 +4,9 @@ const path = require('path');
 
 // Set NODE_PATH to include parent node_modules for module resolution
 const parentNodeModules = path.resolve(__dirname, '..', 'node_modules');
+const pathSeparator = process.platform === 'win32' ? ';' : ':';
 process.env.NODE_PATH = process.env.NODE_PATH 
-  ? `${process.env.NODE_PATH}:${parentNodeModules}` 
+  ? `${process.env.NODE_PATH}${pathSeparator}${parentNodeModules}` 
   : parentNodeModules;
 require('module').Module._initPaths();
 
