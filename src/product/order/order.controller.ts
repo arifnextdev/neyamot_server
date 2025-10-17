@@ -8,10 +8,14 @@ import {
   Post,
   Put,
   Query,
-  UseGuards,
-  UsePipes,
+  UsePipes
 } from '@nestjs/common';
-import { OrderService } from './order.service';
+import { Role } from '@prisma/client';
+import { Roles } from '../../roles/decorator';
+import {
+  AdminOrderCreateDto,
+  adminOrderCreateSchema,
+} from '../common/dto/admin.order.dto';
 import {
   CreateOrderSchema,
   GetFilterDto,
@@ -19,14 +23,7 @@ import {
   OrederCreateDto,
 } from '../common/dto/order.dto';
 import { ZodValidationPipe } from '../common/zodValidationPipe';
-import {
-  AdminOrderCreateDto,
-  adminOrderCreateSchema,
-} from '../common/dto/admin.order.dto';
-import { AuthGuard } from '@nestjs/passport';
-import { RoleGuard } from 'src/roles/guards';
-import { Role } from '@prisma/client';
-import { Roles } from 'src/roles/decorator';
+import { OrderService } from './order.service';
 
 @Controller('orders')
 export class OrderController {

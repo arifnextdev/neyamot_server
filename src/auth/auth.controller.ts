@@ -12,7 +12,7 @@ import {
   UseGuards,
   UsePipes,
 } from '@nestjs/common';
-import { ZodValidationPipe } from 'src/product/common/zodValidationPipe';
+import { ZodValidationPipe } from '../product/common/zodValidationPipe';
 import { AuthService } from './auth.service';
 import { CreateUserDto, CreateUserSchema } from './dto/user.dto';
 import { UserLoginDto, UserLoginSchema } from './dto/user.login.dto';
@@ -24,12 +24,8 @@ import {
   ForgotPasswordSchema,
 } from './dto/forgot-password.dto';
 import {
-  ResetPasswordDto,
-  ResetPasswordSchema,
+  ResetPasswordDto
 } from './dto/reset-password.dto';
-import { RoleGuard } from 'src/roles/guards';
-import { Roles } from 'src/roles/decorator';
-import { Role } from 'src/roles/enum';
 
 
 @Controller('auth')

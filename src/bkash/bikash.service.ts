@@ -2,9 +2,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import axios from 'axios';
 import { Response } from 'express';
-import { MailService } from 'src/mail/mail.service';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { TasksService } from 'src/tasks/tasks.service';
+import { MailService } from '../mail/mail.service';
+import { PrismaService } from '../prisma/prisma.service';
+import { TasksService } from '../tasks/tasks.service';
 
 @Injectable()
 export class BikashService {

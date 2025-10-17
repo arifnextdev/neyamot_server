@@ -9,8 +9,8 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { ResetPasswordDto } from 'src/auth/dto/reset-password.dto';
-import { UpdateUserDto } from 'src/auth/dto/user.dto';
+import { ResetPasswordDto } from '../auth/dto/reset-password.dto';
+import { UpdateUserDto } from '../auth/dto/user.dto';
 import { UserService } from './user.service';
 
 @Controller('users')

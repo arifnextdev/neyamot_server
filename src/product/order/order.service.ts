@@ -14,10 +14,10 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { BikashService } from 'src/bkash/bikash.service';
-import { MailService } from 'src/mail/mail.service';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { TasksService } from 'src/tasks/tasks.service';
+import { BikashService } from '../../bkash/bikash.service';
+import { MailService } from '../../mail/mail.service';
+import { PrismaService } from '../../prisma/prisma.service';
+import { TasksService } from '../../tasks/tasks.service';
 import { AdminOrderCreateDto } from '../common/dto/admin.order.dto';
 import { GetOrderDto, OrederCreateDto } from '../common/dto/order.dto';
 import { orderStatusSchema } from '../common/dto/order.status.dto';

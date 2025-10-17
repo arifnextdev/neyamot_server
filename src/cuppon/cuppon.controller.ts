@@ -10,7 +10,7 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { CupponService } from './cuppon.service';
-import { ZodValidationPipe } from 'src/product/common/zodValidationPipe';
+import { ZodValidationPipe } from '../product/common/zodValidationPipe';
 import { createCupponDto, CreateCupponSchema } from './dto/create.cuppon.dto';
 import { updateCupponDto } from './dto/update.cuppon.dto';
 

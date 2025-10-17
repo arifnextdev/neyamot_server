@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { MailService } from 'src/mail/mail.service';
-import { OrderService } from 'src/product/order/order.service';
+import { MailService } from '../../mail/mail.service';
+import { OrderService } from '../../product/order/order.service';
 
 @Injectable()
 export class OrderReminderService {

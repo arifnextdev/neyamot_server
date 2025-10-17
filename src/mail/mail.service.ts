@@ -99,7 +99,7 @@
 // mail.service.ts
 import { Injectable, Logger } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import * as fs from 'fs';
 import { join } from 'path';
 import * as html_to_pdf from 'html-pdf-node';

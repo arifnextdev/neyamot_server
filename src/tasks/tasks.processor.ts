@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import axios from 'axios';
 import { Worker, Job } from 'bullmq';
-import { MailService } from 'src/mail/mail.service';
+import { MailService } from '../mail/mail.service';
 import * as https from 'https';
 
 import { ConfigService } from '@nestjs/config';

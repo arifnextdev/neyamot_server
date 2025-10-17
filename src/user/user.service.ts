@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { UpdateUserDto, CreateUserDto } from 'src/auth/dto/user.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { UpdateUserDto, CreateUserDto } from '../auth/dto/user.dto';
+import { PrismaService } from '../prisma/prisma.service';
 import { userUpdateSchema } from './dto/userUpdate.dto';
-import { ResetPasswordDto } from 'src/auth/dto/reset-password.dto';
+import { ResetPasswordDto } from '../auth/dto/reset-password.dto';
 import * as bcrypt from 'bcryptjs';
 import { Role, UserStatus } from '@prisma/client';
 
