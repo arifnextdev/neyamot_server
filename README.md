@@ -76,7 +76,7 @@ This project is **best deployed on Render** (or similar platforms like Railway, 
 
 ### Deploy to Vercel (Limited Functionality)
 
-If you still want to deploy to Vercel, the configuration is set up with a serverless handler in `api/index.ts`. However, be aware:
+The `src/main.ts` file exports a serverless handler for Vercel deployment. However, be aware:
 
 **What Works:**
 - ✅ Basic API endpoints (CRUD operations)
@@ -88,6 +88,8 @@ If you still want to deploy to Vercel, the configuration is set up with a server
 - ❌ Scheduled cron jobs
 - ❌ Email queues
 - ❌ Any long-running tasks
+
+**Important**: Delete the `api/` folder before deploying to Vercel (it's not needed).
 
 To deploy to Vercel:
 ```bash
