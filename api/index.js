@@ -4,8 +4,8 @@ const path = require('path');
 
 module.exports = async (req, res) => {
   try {
-    // Try to resolve the path to the compiled main.js (now in api/dist)
-    const mainPath = path.join(__dirname, 'dist', 'src', 'main.js');
+    // The compiled main.js is directly in api/dist (not in a src subdirectory)
+    const mainPath = path.join(__dirname, 'dist', 'main.js');
     const handler = require(mainPath).default;
     return handler(req, res);
   } catch (error) {

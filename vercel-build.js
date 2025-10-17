@@ -14,9 +14,9 @@ try {
   process.exit(1);
 }
 
-// Copy dist folder to api directory
-console.log('Copying dist folder to api directory...');
-const distPath = path.join(__dirname, 'dist');
+// Copy dist/src folder to api/dist directory (NestJS outputs to dist/src)
+console.log('Copying dist/src folder to api/dist directory...');
+const distPath = path.join(__dirname, 'dist', 'src');
 const apiDistPath = path.join(__dirname, 'api', 'dist');
 
 function copyRecursive(src, dest) {
