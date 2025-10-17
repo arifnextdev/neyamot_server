@@ -94,7 +94,7 @@ The application will:
 #### Manual Deployment
 If you prefer manual configuration:
 - **Build Command**: `pnpm install && npx prisma generate && npx prisma migrate deploy && pnpm run build`
-- **Start Command**: `pnpm run start:prod`
+- **Start Command**: `node dist/main.js`
 - **Health Check Path**: `/api`
 
 ## Resources
