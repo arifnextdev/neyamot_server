@@ -156,6 +156,9 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^8.0.0
         version: 8.39.0(eslint@8.57.1)(typescript@5.9.2)
+      '@vercel/ncc':
+        specifier: ^0.38.2
+        version: 0.38.4
       eslint:
         specifier: ^8.0.0
         version: 8.57.1
@@ -1093,6 +1096,10 @@ packages:
   '@vendia/serverless-express@3.4.1':
     resolution: {integrity: sha512-4dJJvr9vQlq9iUClpfm5iFL+neoSctUI6Zkh9F4wjk/tpcM7QVD6niJi4ptiIzyzJCWoN97ACQCXyE0O8MznLQ==}
     engines: {node: '>=6'}
+
+  '@vercel/ncc@0.38.4':
+    resolution: {integrity: sha512-8LwjnlP39s08C08J5NstzriPvW1SP8Zfpp1BvC2sI35kPeZnHfxVkCwu4/+Wodgnd60UtT1n8K8zw+Mp7J9JmQ==}
+    hasBin: true
 
   '@webassemblyjs/ast@1.14.1':
     resolution: {integrity: sha512-nuBEDgQfm1ccRp/8bCQrx1frohyufl4JlbMMZ4P1wpeOfDhF6FQkxZJ1b/e+PLwr6X1Nhw6OLme5usuBWYBvuQ==}
@@ -5517,6 +5524,8 @@ snapshots:
       '@codegenie/serverless-express': 3.4.1
       binary-case: 1.1.4
       type-is: 1.6.18
+
+  '@vercel/ncc@0.38.4': {}
 
   '@webassemblyjs/ast@1.14.1':
     dependencies:
