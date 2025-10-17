@@ -1,20 +1,28 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { AllExceptionsFilter } from './common/filters/http-exception.filter';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  app.useGlobalFilters(new AllExceptionsFilter());
+  const app = await NestFactory.create(AppModule, {
+    rawBody: true,
+    bodyParser: true,
+  });
+
+  app.use(cookieParser());
+
+  //CORS ENABLE
   app.enableCors({
-    origin: [process.env.FRONTEND_URL ?? 'http://localhost:3000'],
-    credentials: true,
+    origin: [
+      process.env.FRONTEND_URL || 'http://localhost:3000',
+      'http://localhost:3000',
+    ], // Replace with your frontend's URL
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true, // Enable cookies and credentials
   });
-  app.setGlobalPrefix('api');
 
-  const port = process.env.PORT || 8001;
+  app.setGlobalPrefix('api/v1');
 
-  await app.listen(port, '0.0.0.0', () => {
-    console.log(`Server is running on http://localhost:${port}/api`);
-  });
+  await app.listen(process.env.PORT ?? 8000);
 }
 bootstrap();
