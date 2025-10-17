@@ -1,16 +1,10 @@
 {
-  "version": 2,
-  "buildCommand": "pnpm run vercel-build",
+  "buildCommand": "node vercel-build.js",
   "installCommand": "pnpm install",
   "rewrites": [
     {
       "source": "/(.*)",
       "destination": "/api/index"
     }
-  ],
-  "functions": {
-    "api/index.js": {
-      "includeFiles": "dist/**"
-    }
-  }
+  ]
 }
