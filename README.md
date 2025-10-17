@@ -60,6 +60,20 @@ $ yarn run test:cov
 
 ## Deployment
 
+### Recommended Platform: Render
+
+This project is **best deployed on Render** (or similar platforms like Railway, Fly.io) because it includes:
+- Background job processing with BullMQ
+- Scheduled cron jobs
+- Long-running processes
+- PostgreSQL database with migrations
+
+**Note**: Vercel is NOT recommended for this application as it's designed for serverless functions and doesn't support:
+- Background workers
+- Scheduled tasks
+- Long-running processes
+- Stateful connections (Redis for Bull queues)
+
 ### Deploy to Render
 
 This project is configured for deployment on Render using the `render.yaml` blueprint.
