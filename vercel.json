@@ -1,17 +1,10 @@
 {
   "version": 2,
   "buildCommand": "pnpm run vercel-build",
-  "builds": [
+  "rewrites": [
     {
-      "src": "package.json",
-      "use": "@vercel/node"
+      "source": "/(.*)",
+      "destination": "/api/index"
     }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/dist/main.js"
-    }
-  ],
-  "outputDirectory": "dist"
+  ]
 }
