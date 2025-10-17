@@ -74,6 +74,28 @@ This project is **best deployed on Render** (or similar platforms like Railway, 
 - Long-running processes
 - Stateful connections (Redis for Bull queues)
 
+### Deploy to Vercel (Limited Functionality)
+
+If you still want to deploy to Vercel, the configuration is set up with a serverless handler in `api/index.ts`. However, be aware:
+
+**What Works:**
+- ✅ Basic API endpoints (CRUD operations)
+- ✅ Database queries
+- ✅ Authentication
+
+**What Won't Work:**
+- ❌ Background job processing (BullMQ)
+- ❌ Scheduled cron jobs
+- ❌ Email queues
+- ❌ Any long-running tasks
+
+To deploy to Vercel:
+```bash
+vercel --prod
+```
+
+Or connect your repository in the Vercel dashboard.
+
 ### Deploy to Render
 
 This project is configured for deployment on Render using the `render.yaml` blueprint.
