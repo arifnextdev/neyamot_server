@@ -60,16 +60,42 @@ $ yarn run test:cov
 
 ## Deployment
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+### Deploy to Render
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+This project is configured for deployment on Render using the `render.yaml` blueprint.
 
-```bash
-$ yarn install -g mau
-$ mau deploy
-```
+#### Prerequisites
+1. A Render account
+2. A PostgreSQL database (can be created on Render)
+3. Required environment variables
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+#### Environment Variables
+Set these in your Render dashboard:
+- `DATABASE_URL` - PostgreSQL connection string
+- `JWT_SECRET` - Secret key for JWT authentication
+- `FRONTEND_URL` - Your frontend application URL
+- `NODE_ENV` - Set to `production`
+- `PORT` - Automatically set by Render (default: 10000)
+
+#### Deployment Steps
+1. Push your code to GitHub
+2. Connect your repository to Render
+3. Render will automatically detect the `render.yaml` file
+4. Configure your environment variables in the Render dashboard
+5. Deploy!
+
+The application will:
+- Install dependencies using `pnpm`
+- Generate Prisma client
+- Run database migrations
+- Build the NestJS application
+- Start the server on the port provided by Render
+
+#### Manual Deployment
+If you prefer manual configuration:
+- **Build Command**: `pnpm install && npx prisma generate && npx prisma migrate deploy && pnpm run build`
+- **Start Command**: `pnpm run start:prod`
+- **Health Check Path**: `/api`
 
 ## Resources
 
