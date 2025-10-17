@@ -4,9 +4,18 @@ const path = require('path');
 
 module.exports = async (req, res) => {
   try {
-    // The compiled main.js is directly in api/dist (not in a src subdirectory)
+    // Change to parent directory so module resolution works correctly
+    const originalCwd = process.cwd();
+    const rootDir = path.join(__dirname, '..');
+    process.chdir(rootDir);
+    
+    // The compiled main.js is directly in api/dist
     const mainPath = path.join(__dirname, 'dist', 'main.js');
     const handler = require(mainPath).default;
+    
+    // Restore original directory (though not strictly necessary)
+    process.chdir(originalCwd);
+    
     return handler(req, res);
   } catch (error) {
     console.error('Error loading handler:', error);
