@@ -26,10 +26,6 @@ COPY . .
 # Generate Prisma client
 RUN pnpm exec prisma generate
 
-# Seed the database
-RUN pnpm exec prisma db seed
-
-
 # Build the application
 RUN pnpm run build
 
@@ -47,6 +43,11 @@ COPY --from=builder --chown=nestjs:nodejs /app/dist ./dist
 COPY --from=builder --chown=nestjs:nodejs /app/node_modules ./node_modules
 COPY --from=builder --chown=nestjs:nodejs /app/package.json ./package.json
 COPY --from=builder --chown=nestjs:nodejs /app/prisma ./prisma
+COPY --chown=nestjs:nodejs docker-entrypoint.sh ./docker-entrypoint.sh
+
+# Make entrypoint script executable
+USER root
+RUN chmod +x docker-entrypoint.sh
 
 # Set user
 USER nestjs
@@ -54,5 +55,5 @@ USER nestjs
 # Expose port (Render uses PORT env variable)
 EXPOSE 3000
 
-# Start the application
-CMD ["node", "dist/main.js"]
+# Start the application using entrypoint script
+CMD ["./docker-entrypoint.sh"]
