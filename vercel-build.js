@@ -7,7 +7,12 @@ console.log('Running Vercel build script...');
 
 // Run the normal build
 console.log('Building NestJS application...');
-execSync('pnpm run vercel-build', { stdio: 'inherit' });
+try {
+  execSync('npx prisma generate && nest build', { stdio: 'inherit' });
+} catch (error) {
+  console.error('Build failed:', error.message);
+  process.exit(1);
+}
 
 // Copy dist folder to api directory
 console.log('Copying dist folder to api directory...');
@@ -17,7 +22,10 @@ const apiDistPath = path.join(__dirname, 'api', 'dist');
 function copyRecursive(src, dest) {
   if (!fs.existsSync(src)) {
     console.error(`Source directory ${src} does not exist`);
-    return;
+    console.error(`Looking for: ${src}`);
+    console.error(`Current directory: ${__dirname}`);
+    console.error(`Directory contents:`, fs.readdirSync(__dirname));
+    process.exit(1);
   }
   
   if (!fs.existsSync(dest)) {
@@ -39,4 +47,5 @@ function copyRecursive(src, dest) {
 }
 
 copyRecursive(distPath, apiDistPath);
-console.log('Build complete!');
+console.log('✓ Build complete!');
+console.log('✓ Copied dist to api/dist');

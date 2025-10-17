@@ -6,6 +6,4 @@ test
 coverage
 *.spec.ts
 *.test.ts
-src
 prisma/migrations
-!api/dist
