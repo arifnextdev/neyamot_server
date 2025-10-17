@@ -54,7 +54,21 @@ if (fs.existsSync(apiDistPath)) {
 fs.cpSync(distRoot, apiDistPath, { recursive: true });
 console.log('✓ Copied dist to api/dist');
 
-// Step 5: Create symlink or copy node_modules
+// Step 5: Create package.json in api directory
+console.log('Creating package.json in api directory...');
+const apiPackageJson = {
+  "name": "api-handler",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs"
+};
+fs.writeFileSync(
+  path.join(apiDir, 'package.json'),
+  JSON.stringify(apiPackageJson, null, 2)
+);
+console.log('✓ Created package.json');
+
+// Step 6: Create symlink or copy node_modules
 console.log('Setting up node_modules for api...');
 const apiNodeModules = path.join(apiDir, 'node_modules');
 const rootNodeModules = path.join(__dirname, 'node_modules');
