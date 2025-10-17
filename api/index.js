@@ -1,10 +1,10 @@
 // Vercel serverless function handler
-// Simple proxy to the compiled NestJS app in the parent dist folder
+// Loads the bundled NestJS application (created by @vercel/ncc)
 
 module.exports = async (req, res) => {
   try {
-    // Import from parent dist folder where node_modules resolution works correctly
-    const handler = require('../dist/main.js').default;
+    // Import the bundled application (includes all dependencies)
+    const handler = require('./dist/index.js').default;
     return handler(req, res);
   } catch (error) {
     console.error('Error loading handler:', error);
