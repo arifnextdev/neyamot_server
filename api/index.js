@@ -2,19 +2,18 @@
 // This imports the compiled NestJS app and forwards requests to it
 const path = require('path');
 
+// Set NODE_PATH to include parent node_modules for module resolution
+const parentNodeModules = path.resolve(__dirname, '..', 'node_modules');
+process.env.NODE_PATH = process.env.NODE_PATH 
+  ? `${process.env.NODE_PATH}:${parentNodeModules}` 
+  : parentNodeModules;
+require('module').Module._initPaths();
+
 module.exports = async (req, res) => {
   try {
-    // Change to parent directory so module resolution works correctly
-    const originalCwd = process.cwd();
-    const rootDir = path.join(__dirname, '..');
-    process.chdir(rootDir);
-    
     // The compiled main.js is directly in api/dist
     const mainPath = path.join(__dirname, 'dist', 'main.js');
     const handler = require(mainPath).default;
-    
-    // Restore original directory (though not strictly necessary)
-    process.chdir(originalCwd);
     
     return handler(req, res);
   } catch (error) {

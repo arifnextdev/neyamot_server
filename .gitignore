@@ -3,6 +3,8 @@
 /node_modules
 /build
 /api/dist
+/api/node_modules
+/api/package.json
 
 # Logs
 logs
