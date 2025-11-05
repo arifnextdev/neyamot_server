@@ -8,7 +8,7 @@ async function bootstrap() {
   app.use(cookieParser());
 
   app.enableCors({
-    origin: ['https://neyamotenterprise.com', 'http://localhost:3000'],
+    origin: [`${process.env.API_URL}`,'https://neyamotenterprise.com', 'https://bdcloud.com.bd', 'http://localhost:3000'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
